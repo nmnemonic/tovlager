@@ -56,33 +56,13 @@ export class HomePage {
       });
   }
 
-  collectItem(user, barcode, info) {
-
-  }
-
   scan() {
     this.selectedProduct = {};
-    this.barcodeScanner.scan(scanOptions).then((barcodeData) => {
-      console.log(barcodeData.text);
-      this.selectedProduct = this.restproducts.find(product => product.barcode === barcodeData.text);
-      if (this.selectedProduct !== undefined) {
-        this.productFound = true;
-        console.log(this.selectedProduct.barcode);
-      } else {
-        this.selectedProduct = {};
-        this.productFound = false;
-        this.toast.show('Product not found', '5000', 'center').subscribe(
-          toast => {
-            console.log('Product not found');
-          }
-        );
-      }
+    this.barcodeScanner.scan(scanOptions).then(barcodeData => {
+      console.log("got barcode");
+      this.processBarcode(barcodeData);
     }, (err) => {
-      this.toast.show(err, '5000', 'center').subscribe(
-        toast => {
-          console.log(toast);
-        }
-      );
+      this.showToast(err);
     });
   }
 
@@ -90,25 +70,38 @@ export class HomePage {
     var item = { barcode: this.selectedProduct.barcode, user: "Nils-Morten", info: "Not implemented yet" };
     this.restProvider.collectItem(item).then((result) => {
       console.log(result);
+      this.showToast("Registert som plukket");
+      this.selectedProduct = {};
+      this.productFound = false;
     }, (err) => {
+      this.showToast("Registeringen feilet.  Scann en ny strekkode, eller prøv igjen");
       console.log(err);
     });
   }
 
   processBarcode(barcodeData) {
     console.log(barcodeData.text);
-    this.selectedProduct = this.restproducts.find(product => product.barcode === barcodeData.text);
-    if (this.selectedProduct !== undefined) {
-      this.productFound = true;
-      console.log(this.selectedProduct.barcode);
-    } else {
-      this.selectedProduct = {};
-      this.productFound = false;
-      this.toast.show('Product not found', '5000', 'center').subscribe(
-        toast => {
-          console.log('Product not found');
-        });
-    }
+    this.restProvider.getProduct(barcodeData.text).then(data => {
+      if (data != undefined) {
+        console.log("got product");
+        this.selectedProduct = data;
+        this.productFound = true;
+        console.log(this.selectedProduct.barcode);
+      } else {
+        this.selectedProduct = {};
+        this.productFound = false;
+        this.showToast('Fant ikke noe produkt med denne strekkoden');
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  showToast(text) {
+    this.toast.show(text, '5000', 'center').subscribe(
+      toast => {
+        console.log("showed toast:" + text);
+      });
   }
 
 }

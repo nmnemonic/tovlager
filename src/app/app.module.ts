@@ -11,7 +11,6 @@ import { DataServiceProvider } from '../providers/data-service/data-service';
 import { RestProvider } from '../providers/rest/rest';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
 @NgModule({
   declarations: [
     MyApp,
