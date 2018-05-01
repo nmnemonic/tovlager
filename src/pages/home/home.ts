@@ -64,6 +64,10 @@ export class HomePage {
       }
     }, (err) => {
       console.log(err);
+      this.showToast("Feil:  Sjekk at du har nettverk");
+    }).catch(function() {
+      console.log("Promise Rejected (processBarcode)");
+      this.showToast("Feil:  Manglende forbindelse til server??");
     });
   }
 

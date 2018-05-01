@@ -37,6 +37,9 @@ export class CollectPage {
     }, (err) => {
       this.showToast("Registeringen feilet.  Scann en ny strekkode, eller prøv igjen");
       console.log(err);
+    }).catch(function() {
+      console.log("Promise Rejected (pick)");
+      this.showToast("Feil:  Manglende forbindelse til server??");
     });
   }
 
