@@ -34,7 +34,7 @@ export class SettingsPage {
     this.settings.setUrl(this.serverAddress);
     this.settings.setUserName(this.userName);
     this.settings.save();
-
+    this.navCtrl.pop();
   }
 
   getUserName(){

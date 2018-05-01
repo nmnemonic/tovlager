@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Registrer som plukket</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ul>
+    <li>{{userName}}</li>
+    <li>{{selectedProduct.barcode}}</li>
+    <li>{{selectedProduct.benevning}}</li>
+    <li>{{selectedProduct.vendor}}</li>
+    <li>{{selectedProduct.vendoritemnumber}}</li>
+  </ul>
+  <ion-item>
+    <ion-label>Kommentarer</ion-label>
+    <ion-textarea [(ngModel)]="info"></ion-textarea>
+  </ion-item>
+  <button ion-button color="dark" full round (click)="pick()">Registrer som plukket</button>
+</ion-content>

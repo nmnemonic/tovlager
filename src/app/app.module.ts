@@ -8,6 +8,7 @@ import { Toast } from '@ionic-native/toast';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
+import { CollectPage } from '../pages/collect/collect';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { RestProvider } from '../providers/rest/rest';
 import { HttpModule } from '@angular/http';
@@ -19,6 +20,7 @@ import { SettingsProvider } from '../providers/settings/settings';
   declarations: [
     MyApp,
     SettingsPage,
+    CollectPage,
     HomePage
   ],
   imports: [
@@ -31,6 +33,7 @@ import { SettingsProvider } from '../providers/settings/settings';
   entryComponents: [
     MyApp,
     SettingsPage,
+    CollectPage,
     HomePage
   ],
   providers: [

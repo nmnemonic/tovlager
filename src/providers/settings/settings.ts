@@ -5,7 +5,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 
 @Injectable()
 export class SettingsProvider {
-  userName: string;
+  userName: string = "Ukjent bruker";
   serverAddress: string;
 
   constructor(public http: HttpClient,
@@ -23,8 +23,8 @@ export class SettingsProvider {
           this.serverAddress = data.serverAddress;
         },
         error => {
-          this.userName = "unknown";
-          this.serverAddress = "192.168.1.176";
+          this.userName = "Ukjent";
+          this.serverAddress = "http://192.168.1.176:8080";
         }
       );
   }

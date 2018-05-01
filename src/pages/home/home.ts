@@ -6,6 +6,7 @@ import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { RestProvider } from '../../providers/rest/rest';
 import { SettingsProvider } from '../../providers/settings/settings';
 import { SettingsPage } from '../settings/settings';
+import { CollectPage } from '../collect/collect';
 
 const scanOptions = {
   preferFrontCamera: false, // iOS and Android
@@ -27,8 +28,8 @@ const scanOptions = {
 export class HomePage {
 
   settingsPage = SettingsPage;
-  selectedProduct: any;
-  productFound: boolean = false;
+  collectPage = CollectPage;
+  userName: string;
 
   constructor(public navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
@@ -36,10 +37,14 @@ export class HomePage {
     public dataService: DataServiceProvider,
     public settingsProvider: SettingsProvider,
     public restProvider: RestProvider) {
-      }
+  }
+
+  public ionViewWillEnter() {
+    console.log("ionViewWillEnter fired");
+    this.userName = this.settingsProvider.getUserName();
+  }
 
   scan() {
-    this.selectedProduct = {};
     this.barcodeScanner.scan(scanOptions).then(barcodeData => {
       console.log("got barcode");
       this.processBarcode(barcodeData);
@@ -48,31 +53,13 @@ export class HomePage {
     });
   }
 
-  pick() {
-    var item = { barcode: this.selectedProduct.barcode, user: this.settingsProvider.getUserName(), info: "Not implemented yet" };
-    this.restProvider.collectItem(item).then((result) => {
-      console.log(result);
-      this.showToast("Registert som plukket");
-      this.selectedProduct = {};
-      this.productFound = false;
-    }, (err) => {
-      this.showToast("Registeringen feilet.  Scann en ny strekkode, eller prøv igjen");
-      console.log(err);
-    });
-  }
-
   processBarcode(barcodeData) {
     console.log(barcodeData.text);
     this.restProvider.getProduct(barcodeData.text).then(data => {
       if (data != undefined) {
-        console.log("got product:"+ JSON.stringify(data));
-        this.selectedProduct = data;
-        this.productFound = true;
-      //  this.showToast('Fant produkt: ' + this.selectedProduct.vendoritemnumber);
-        console.log(this.selectedProduct.barcode);
+        console.log("got product:" + JSON.stringify(data));
+        this.goToCollectPage(data);
       } else {
-        this.selectedProduct = {};
-        this.productFound = false;
         this.showToast('Fant ikke noe produkt med denne strekkoden');
       }
     }, (err) => {
@@ -86,6 +73,19 @@ export class HomePage {
       toast => {
         console.log("showed toast:" + text);
       });
+  }
+
+  goToCollectPage(product) {
+    product = product || {
+      barcode: '12345',
+      benevning: '0000',
+      vendor: 'ACME',
+      vendoritemnumber: 'No such product!'
+    };
+
+    this.navCtrl.push(this.collectPage, {
+      data: product
+    });
   }
 
 }
