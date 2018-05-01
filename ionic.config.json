@@ -1,6 +1,6 @@
 {
   "name": "tovlager",
-  "app_id": "",
+  "app_id": "no.tov.tovlager",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

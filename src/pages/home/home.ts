@@ -35,7 +35,7 @@ export class HomePage {
     public dataService: DataServiceProvider,
     public restProvider: RestProvider) {
     //    this.getLocalProducts();
-    this.getProducts();
+    // this.getProducts();
   }
 
   getLocalProducts() {
@@ -83,9 +83,10 @@ export class HomePage {
     console.log(barcodeData.text);
     this.restProvider.getProduct(barcodeData.text).then(data => {
       if (data != undefined) {
-        console.log("got product");
+        console.log("got product:"+ JSON.stringify(data));
         this.selectedProduct = data;
         this.productFound = true;
+        this.showToast('Fant produkt: ' + this.selectedProduct.vendoritemnumber);
         console.log(this.selectedProduct.barcode);
       } else {
         this.selectedProduct = {};
@@ -98,6 +99,7 @@ export class HomePage {
   }
 
   showToast(text) {
+    console.log("showing toast:" + text);
     this.toast.show(text, '5000', 'center').subscribe(
       toast => {
         console.log("showed toast:" + text);

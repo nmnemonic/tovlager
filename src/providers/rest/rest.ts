@@ -10,7 +10,7 @@ const httpOptions = {
 
 @Injectable()
 export class RestProvider {
-  apiUrl = 'http://192.168.1.241:8080';
+  apiUrl = 'https://tovserver.herokuapp.com';
 
   constructor(private http: HttpClient) {
     console.log('Hello RestProvider Provider');
@@ -44,8 +44,8 @@ export class RestProvider {
   getProduct(barcode) {
     return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl + '/products/' + barcode).subscribe(data => {
-        console.log(data);
-        resolve(data);
+        console.log(JSON.stringify(data));
+        resolve(data[0]);
       }, err => {
         console.log("getProduct failed");
         reject(err);
