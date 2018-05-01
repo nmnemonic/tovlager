@@ -7,6 +7,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Toast } from '@ionic-native/toast';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { SettingsPage } from '../pages/settings/settings';
 import { DataServiceProvider } from '../providers/data-service/data-service';
 import { RestProvider } from '../providers/rest/rest';
 import { HttpModule } from '@angular/http';
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     MyApp,
+    SettingsPage,
     HomePage
   ],
   imports: [
@@ -25,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    SettingsPage,
     HomePage
   ],
   providers: [

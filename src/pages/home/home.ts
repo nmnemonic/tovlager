@@ -4,6 +4,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Toast } from '@ionic-native/toast';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { RestProvider } from '../../providers/rest/rest';
+import { SettingsPage } from '../settings/settings';
 
 const scanOptions = {
   preferFrontCamera: false, // iOS and Android
@@ -24,8 +25,7 @@ const scanOptions = {
 })
 export class HomePage {
 
-  products: any[] = [];
-  restproducts: any;
+  settingsPage = SettingsPage;
   selectedProduct: any;
   productFound: boolean = false;
 
@@ -34,27 +34,7 @@ export class HomePage {
     private toast: Toast,
     public dataService: DataServiceProvider,
     public restProvider: RestProvider) {
-    //    this.getLocalProducts();
-    // this.getProducts();
-  }
-
-  getLocalProducts() {
-    this.dataService.getProducts()
-      .subscribe((response) => {
-        this.products = response;
-        console.log("local");
-        console.log(this.products);
-      });
-  }
-
-  getProducts() {
-    this.restProvider.getProducts()
-      .then(data => {
-        this.restproducts = data;
-        console.log("rest");
-        console.log(this.restproducts);
-      });
-  }
+      }
 
   scan() {
     this.selectedProduct = {};

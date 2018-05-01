@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       Trøndelag Ortopediske Verksted
     </ion-title>
@@ -11,17 +14,22 @@
   <button ion-button color="dark" full round (click)="scan()">Skann strekkode</button>
 </h1>
 
-<ion-card *ngIf="productFound">
-  <ion-card-header>
-    <h2>Strekkode:{{selectedProduct.barcode}}</h2>
-  </ion-card-header>
-  <ion-card-content>
-    <ul>
-      <li>{{selectedProduct.benevning}}</li>
-      <li>{{selectedProduct.vendor}}</li>
-      <li>{{selectedProduct.vendoritemnumber}}</li>
-    </ul>
+  <ion-card *ngIf="productFound">
+    <ion-card-header>
+      <h2>Strekkode:{{selectedProduct.barcode}}</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>{{selectedProduct.benevning}}</li>
+        <li>{{selectedProduct.vendor}}</li>
+        <li>{{selectedProduct.vendoritemnumber}}</li>
+      </ul>
       <button ion-button color="dark" full round (click)="pick()">Registrer som plukket</button>
-  </ion-card-content>
-</ion-card>
+    </ion-card-content>
+  </ion-card>
+  <ion-card >
+    <h1>
+    <button ion-button color="dark" full round [navPush]="settingsPage">Instillinger...</button>
+  </h1>
+  </ion-card>
 </ion-content>
