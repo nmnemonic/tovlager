@@ -13,13 +13,16 @@
 
     <ion-item>
       <ion-label fixed>Username</ion-label>
-      <ion-input type="text" value="Nils-Morten"></ion-input>
+      <ion-input [(ngModel)]="userName"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>Server</ion-label>
-      <ion-input type="text" value="192.168.1.176"></ion-input>
+      <ion-input [(ngModel)]="serverAddress"></ion-input>
     </ion-item>
 
   </ion-list>
+  <h1>
+    <button ion-button color="dark" full round (click)="save()">Lagre</button>
+  </h1>
 </ion-content>

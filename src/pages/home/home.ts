@@ -4,6 +4,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Toast } from '@ionic-native/toast';
 import { DataServiceProvider } from '../../providers/data-service/data-service';
 import { RestProvider } from '../../providers/rest/rest';
+import { SettingsProvider } from '../../providers/settings/settings';
 import { SettingsPage } from '../settings/settings';
 
 const scanOptions = {
@@ -33,6 +34,7 @@ export class HomePage {
     private barcodeScanner: BarcodeScanner,
     private toast: Toast,
     public dataService: DataServiceProvider,
+    public settingsProvider: SettingsProvider,
     public restProvider: RestProvider) {
       }
 
@@ -47,7 +49,7 @@ export class HomePage {
   }
 
   pick() {
-    var item = { barcode: this.selectedProduct.barcode, user: "Nils-Morten", info: "Not implemented yet" };
+    var item = { barcode: this.selectedProduct.barcode, user: this.settingsProvider.getUserName(), info: "Not implemented yet" };
     this.restProvider.collectItem(item).then((result) => {
       console.log(result);
       this.showToast("Registert som plukket");
@@ -66,7 +68,7 @@ export class HomePage {
         console.log("got product:"+ JSON.stringify(data));
         this.selectedProduct = data;
         this.productFound = true;
-        this.showToast('Fant produkt: ' + this.selectedProduct.vendoritemnumber);
+      //  this.showToast('Fant produkt: ' + this.selectedProduct.vendoritemnumber);
         console.log(this.selectedProduct.barcode);
       } else {
         this.selectedProduct = {};

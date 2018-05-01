@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { SettingsProvider } from '../settings/settings';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -10,15 +11,15 @@ const httpOptions = {
 
 @Injectable()
 export class RestProvider {
-  apiUrl = 'https://tovserver.herokuapp.com';
+  defaultUrl = 'https://tovserver.herokuapp.com';
+  constructor(private http: HttpClient, private settingsProvider:SettingsProvider) {
 
-  constructor(private http: HttpClient) {
     console.log('Hello RestProvider Provider');
   }
 
   getProducts() {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/products').subscribe(data => {
+      this.http.get(this.getUrl() + '/products').subscribe(data => {
         console.log(data);
         resolve(data);
       }, err => {
@@ -30,7 +31,7 @@ export class RestProvider {
   collectItem(data) {
     console.log("Sending item to server " + JSON.stringify(data));
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + '/collect/' + data.barcode, JSON.stringify(data), httpOptions)
+      this.http.post(this.getUrl() + '/collect/' + data.barcode, JSON.stringify(data), httpOptions)
         .subscribe((res) => {
           console.log("ok:" + JSON.stringify(res));
           resolve(res);
@@ -42,8 +43,10 @@ export class RestProvider {
   }
 
   getProduct(barcode) {
+    var url = this.getUrl() + '/products/' + barcode;
+    console.log(url);
     return new Promise((resolve, reject) => {
-      this.http.get(this.apiUrl + '/products/' + barcode).subscribe(data => {
+      this.http.get(url).subscribe(data => {
         console.log(JSON.stringify(data));
         resolve(data[0]);
       }, err => {
@@ -53,5 +56,8 @@ export class RestProvider {
     });
   }
 
+  getUrl() {
+    return this.settingsProvider.getUrl();
+  }
 
 }
