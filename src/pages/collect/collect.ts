@@ -29,7 +29,7 @@ export class CollectPage {
   }
 
   pick() {
-    var item = { barcode: this.selectedProduct.barcode, user: this.userName, info: this.info };
+    var item = { barcode: this.selectedProduct.streck_kod_lev, user: this.userName, info: this.info };
     this.restProvider.collectItem(item).then((result) => {
       console.log(result);
       this.showToast("Registert som plukket");
