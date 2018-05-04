@@ -24,7 +24,7 @@ export class SettingsProvider {
         },
         error => {
           this.userName = "Ukjent";
-          this.serverAddress = "http://192.168.1.176:8080";
+          this.serverAddress = "https://tovserver.herokuapp.com";
         }
       );
   }

@@ -42,6 +42,9 @@ export class HomePage {
   public ionViewWillEnter() {
     console.log("ionViewWillEnter fired");
     this.userName = this.settingsProvider.getUserName();
+    if (this.userName == "Ukjent"){
+       this.userName = "Trykk på meny-ikonet (oppe til høyre) for å sette riktig brukernavn";
+    }
   }
 
   scan() {
@@ -60,7 +63,7 @@ export class HomePage {
         console.log("got product:" + JSON.stringify(data));
         this.goToCollectPage(data);
       } else {
-        this.showToast('Fant ikke noe produkt med denne strekkoden');
+        this.showToast('Fant ikke noe produkt med strekkode "' + barcodeData.text + '"');
       }
     }, (err) => {
       console.log(err);

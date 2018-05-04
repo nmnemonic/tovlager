@@ -1,8 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+    <ion-buttons start>
+      <button ion-button icon-only [navPush]="settingsPage">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
       Trøndelag Ortopediske Verksted
     </ion-title>
@@ -10,18 +12,12 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>
-  <button ion-button color="dark" full round (click)="scan()">Skann strekkode</button>
-</h1>
-  Plukkede produkter vil bli registrert på {{userName}}
-  <ion-card >
-    <div style="position: absolute; bottom: 0px; width: 100%">
-        <div style="text-align: center">
-          <h1>
-          <button ion-button color="dark" round [navPush]="settingsPage">Innstillinger...</button>
-        </h1>
-        </div>
-    </div>
-
-  </ion-card>
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center>
+    Bruker: {{userName}}
+  </ion-row>
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <button ion-button color="blue" class="center" full (click)="scan()">Skann strekkode</button>
+    </ion-row>
+  </ion-grid>
 </ion-content>
